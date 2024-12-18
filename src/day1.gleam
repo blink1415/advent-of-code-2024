@@ -3,15 +3,12 @@ import gleam/list
 import gleam/result
 import gleam/string
 
-pub fn solution(input: String, part: String) -> String {
-  case parse(input) {
-    Ok(parsed) ->
-      case part {
-        "1" -> solve1(parsed)
-        "2" -> solve2(parsed)
-        _ -> "invalid part"
-      }
-    Error(e) -> e
+pub fn solution(input: String, part: String) -> Result(String, String) {
+  use parsed <- result.try(parse(input))
+  case part {
+    "1" -> Ok(solve1(parsed))
+    "2" -> Ok(solve2(parsed))
+    _ -> Error("invalid part")
   }
 }
 
@@ -34,10 +31,8 @@ fn parse(input: String) -> Result(#(List(Int), List(Int)), String) {
 }
 
 fn solve1(input: #(List(Int), List(Int))) -> String {
-  let l1 = list.sort(input.0, int.compare)
-  let l2 = list.sort(input.1, int.compare)
-
-  list.zip(l1, l2)
+  let sort = list.sort(_, int.compare)
+  list.zip(sort(input.0), sort(input.1))
   |> list.map(fn(t) { int.absolute_value(t.0 - t.1) })
   |> int.sum
   |> int.to_string

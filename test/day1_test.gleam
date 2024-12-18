@@ -9,7 +9,7 @@ const input = "3   4
 3   3"
 
 pub fn day1_part1_test() {
-  let want = "11"
+  let want = Ok("11")
 
   let got = day1.solution(input, "1")
 
@@ -17,7 +17,7 @@ pub fn day1_part1_test() {
 }
 
 pub fn day1_part2_test() {
-  let want = "31"
+  let want = Ok("31")
 
   let got = day1.solution(input, "2")
 
