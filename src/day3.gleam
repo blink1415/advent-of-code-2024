@@ -13,10 +13,7 @@ pub fn solution(input: String, part: String) -> Result(String, String) {
   }
 }
 
-type Input =
-  String
-
-fn parse(input: String) -> Result(Input, String) {
+fn parse(input: String) -> Result(String, String) {
   Ok(input)
 }
 
@@ -56,6 +53,7 @@ fn to_tokens(l: List(String)) -> List(Token) {
 }
 
 // parses one char at a time from the head of l until they no longer compose a valid whole number
+// returns the rest of the list
 pub fn parse_leading_int(
   l: List(String),
   accumulated: String,
@@ -78,7 +76,7 @@ pub fn parse_leading_int(
   }
 }
 
-fn solve1(input: Input) -> String {
+fn solve1(input: String) -> String {
   input
   |> string.split("")
   |> to_tokens
@@ -102,7 +100,7 @@ fn run1(l: List(Token), accumulated: Int) -> Int {
   }
 }
 
-fn solve2(input: Input) -> String {
+fn solve2(input: String) -> String {
   input
   |> string.split("")
   |> to_tokens
@@ -110,9 +108,9 @@ fn solve2(input: Input) -> String {
   |> int.to_string
 }
 
-fn run2(l: List(Token), accumulated: Int, do: Bool) -> Int {
+fn run2(l: List(Token), acc: Int, do: Bool) -> Int {
   case l {
-    [] -> accumulated
+    [] -> acc
     [
       Mul,
       OpenParenthesis,
@@ -124,18 +122,15 @@ fn run2(l: List(Token), accumulated: Int, do: Bool) -> Int {
     ] ->
       run2(
         xs,
-        accumulated
-          + {
-          case do {
-            True -> n1 * n2
-            False -> 0
-          }
+        case do {
+          True -> acc + n1 * n2
+          False -> acc
         },
         do,
       )
 
-    [Do, ..xs] -> run2(xs, accumulated, True)
-    [Dont, ..xs] -> run2(xs, accumulated, False)
-    [_, ..xs] -> run2(xs, accumulated, do)
+    [Do, ..xs] -> run2(xs, acc, True)
+    [Dont, ..xs] -> run2(xs, acc, False)
+    [_, ..xs] -> run2(xs, acc, do)
   }
 }

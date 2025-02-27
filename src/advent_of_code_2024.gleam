@@ -4,6 +4,9 @@ import day2
 import day3
 import day4
 import day5
+import day6
+import day7
+import day8
 import gleam/io
 import gleam/result
 import glint
@@ -39,6 +42,9 @@ fn run() -> glint.Command(Nil) {
       "3" -> day3.solution(input, part)
       "4" -> day4.solution(input, part)
       "5" -> day5.solution(input, part)
+      "6" -> day6.solution(input, part)
+      "7" -> day7.solution(input, part)
+      "8" -> day8.solution(input, part)
       d -> Error("invalid day: " <> d)
     }
   }

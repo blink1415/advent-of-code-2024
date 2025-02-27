@@ -82,10 +82,7 @@ fn shift(pos: #(Int, Int), dir: #(Int, Int)) -> #(Int, Int) {
 fn solve2(input: Input) -> String {
   let grid_dict = to_dict(input)
 
-  let directions = [
-    // [#(-1, 0), #(1, 0), #(0, -1), #(0, 1)],
-    [#(-1, -1), #(1, 1), #(1, -1), #(-1, 1)],
-  ]
+  let directions = [[#(-1, -1), #(1, 1), #(1, -1), #(-1, 1)]]
 
   {
     use c, k, v <- dict.fold(grid_dict, 0)

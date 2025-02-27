@@ -39,7 +39,7 @@ pub fn day5_part1_test() {
 }
 
 pub fn day5_part2_test() {
-  let want = Ok("todo")
+  let want = Ok("123")
 
   let got = day5.solution(input, "2")
 
